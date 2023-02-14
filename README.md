@@ -49,3 +49,55 @@ This project is licensed under the MIT License. Please see the LICENSE file for 
 - [Dart](https://dart.dev/)
 - [OpenAI](https://openai.com/)
 Thank you for your interest in Istory! We hope you enjoy using it as much as we enjoyed building it.
+
+## Firebase Realtime Database
+
+- Firebase Realtime Database
+  - users
+    - user_id
+      - email: string
+      - pseudonym: string
+      - name: string
+      - rating: number
+      - level: number
+      - img: string
+      - bio: string
+  - stories
+    - story_id
+      - title: string
+      - author_id: string (is a user_id)
+      - author_pseudonym: string
+      - author_img: string
+      - desc: string
+      - last_updated: string
+      - category: string (Romance, Political, etc.)
+      - characters: array
+        - character_id: string (is a character_id)
+      - first_sender: string
+      - total_messages: number
+      - views: number
+      - likes: number
+      - dislikes: number
+      - rating: number
+      - cover_img: string
+      - bg_img: string
+      - tags: array of strings (new, trending, popular, etc.)
+      - status: string (draft, in-review, published, restricted, unpublished)
+  - messages
+    - story_id: string (is a story_id)
+      - message_id: string
+      - character_name: string
+      - character_img: string
+      - text: string
+      - timestamp: string
+  - characters
+    - character_id: string
+      - character_name: string
+      - character_img: string
+  - reviews
+    - story_id: string (is a story_id)
+      - review_id: string
+      - rating: number
+      - comment: string
+      - timestamp: string
+      - user_id: string
