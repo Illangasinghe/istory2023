@@ -1,4 +1,4 @@
-package com.example.istory
+package com.susinidu.istory
 
 import io.flutter.embedding.android.FlutterActivity
 

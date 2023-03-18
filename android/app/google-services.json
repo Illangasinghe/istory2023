@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "919468158395",
+    "firebase_url": "https://istory-bc418-default-rtdb.firebaseio.com",
+    "project_id": "istory-bc418",
+    "storage_bucket": "istory-bc418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919468158395:android:b7b6cf15eccd205b24a89e",
+        "android_client_info": {
+          "package_name": "com.susinidu.istory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919468158395-9j9o372kama2jp1mch60euj1hc6a2uku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHKSz6lIIU_ai956Doi-w9cvsWFGlAqks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919468158395-8vp3c9jdl54gm6vth7qkffieblbs31dd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
