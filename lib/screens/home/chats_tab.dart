@@ -5,10 +5,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:istory/models/story.dart';
 
 class StoryListScreen extends StatefulWidget {
-  final String appTitle;
   final DatabaseReference databaseReference;
 
-  StoryListScreen({required this.appTitle, required this.databaseReference});
+  StoryListScreen({required this.databaseReference});
 
   @override
   _StoryListScreenState createState() => _StoryListScreenState();
@@ -82,9 +81,10 @@ class _StoryListScreenState extends State<StoryListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chats'),
-      ),
+      //   appBar: AppBar(
+      //     title: const Text('Chats'),
+      //     automaticallyImplyLeading: false, // set to false to remove back button
+      //   ),
       body: ListView.builder(
         itemCount: _stories.length,
         itemBuilder: (context, index) {
@@ -124,6 +124,7 @@ class StoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(appTitle),
+        automaticallyImplyLeading: false, // set to false to remove back button
       ),
       body: Center(
         child: Text('Story: $storyId'),

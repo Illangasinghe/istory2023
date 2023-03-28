@@ -129,6 +129,7 @@ class _WriteStoryScreenState extends State<WriteStoryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.story.title),
+        automaticallyImplyLeading: true, // set to false to remove back button
       ),
       body: Column(
         children: <Widget>[

@@ -42,3 +42,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+istory.keystore
+istory2023.keystore
+upload-keystore.jks
+upload-keystore.jks.old

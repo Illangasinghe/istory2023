@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// Import all screens
+import 'package:istory/screens.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -14,8 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // For example, you could wait for a certain amount of time before
     // navigating to the next screen:
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(milliseconds: 1400), () {
       // Navigate to the next screen
+      checkLoginStatus();
     });
   }
 
@@ -27,12 +33,28 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Add your logo or any other splash screen assets here
-            Image.asset("assets/images/logo.png"),
-            SizedBox(height: 20),
-            CircularProgressIndicator(),
+            Image.asset("assets/images/splash.gif"),
+            const SizedBox(height: 20),
+            const CircularProgressIndicator(),
           ],
         ),
       ),
+      backgroundColor: Colors.white,
     );
+  }
+
+  checkLoginStatus() async {
+    if (FirebaseAuth.instance.currentUser == null) {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
+      // Navigator.pushNamed(context, '/login');
+    } else {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        ModalRoute.withName('/'),
+      );
+      // Navigator.pushNamed(context, '/');
+    }
   }
 }

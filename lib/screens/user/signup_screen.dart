@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:istory/constants/colors.dart';
 import 'package:istory/screens/home/home_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:istory/models/user.dart';
@@ -96,7 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: poshPurple,
                   textStyle: const TextStyle(color: Colors.white),
                 ),
                 child: const Text(

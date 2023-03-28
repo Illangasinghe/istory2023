@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:istory/constants/colors.dart';
 import 'package:istory/models/user.dart';
 import 'package:istory/services/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,50 +45,101 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Profile'),
+      //   automaticallyImplyLeading: false, // set to false to remove back button
+      // ),
       body: Center(
         child: _userModel == null
             ? const CircularProgressIndicator()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(_userModel!.img),
+                  const Text(
+                    'Public Profile',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(width: 0.5, color: poshPurple.shade100),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(_userModel!.img),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Pseudonym',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _userModel!.pseudonym,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Bio',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _userModel!.bio,
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _buildRatingCircle(),
+                            _buildLevelCircle(),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    _userModel!.pseudonym,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
+                  const Text(
+                    'eMail',
+                    style: TextStyle(
+                      color: Colors.grey,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    _userModel!.bio,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    _userModel!.email,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Name',
+                    style: TextStyle(
+                      color: Colors.grey,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    _userModel!.email,
-                    style: const TextStyle(fontSize: 20),
-                  ),
+                  const SizedBox(height: 8),
                   Text(
                     _userModel!.name,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildRatingCircle(),
-                      _buildLevelCircle(),
-                    ],
+                    style: const TextStyle(fontSize: 16),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -101,36 +153,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildRatingCircle() {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.green,
-      ),
-      child: Center(
-        child: Text(
-          _userModel!.rating.toStringAsFixed(1),
-          style: const TextStyle(fontSize: 24, color: Colors.white),
+    return Column(
+      children: [
+        const Text(
+          'Rating',
+          style: TextStyle(
+            color: Colors.grey,
+          ),
         ),
-      ),
+        const SizedBox(height: 8),
+        Container(
+          width: 100,
+          height: 100,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.green,
+          ),
+          child: Center(
+            child: Text(
+              _userModel!.rating.toStringAsFixed(1),
+              style: const TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   Widget _buildLevelCircle() {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.deepPurple,
-      ),
-      child: Center(
-        child: Text(
-          _userModel!.level.toString(),
-          style: const TextStyle(fontSize: 24, color: Colors.white),
+    return Column(
+      children: [
+        const Text(
+          'Level',
+          style: TextStyle(
+            color: Colors.grey,
+          ),
         ),
-      ),
+        const SizedBox(height: 8),
+        Container(
+          width: 100,
+          height: 100,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: poshPurple,
+          ),
+          child: Center(
+            child: Text(
+              _userModel!.level.toString(),
+              style: const TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

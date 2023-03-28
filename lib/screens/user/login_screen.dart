@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:istory/constants/colors.dart';
 import 'package:istory/screens/home/home_screen.dart';
 import 'package:istory/screens/user/signup_screen.dart';
+import 'dart:io';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,6 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = '';
   String password = '';
   String error = '';
+
+  @override
+  void initState() {
+    checkInternetConnectivity();
+    super.initState();
+  }
 
   //Sign in with Email & Password
   Future signInWithEmailAndPassword1(BuildContext context) async {
@@ -71,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //Sign in with Google
   Future signInWithGoogle(BuildContext context) async {
+    error = '';
     try {
 // Sign in with Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -86,9 +97,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
         // Check if user is new or existing
         final User? currentUser = _auth.currentUser;
+        // print("user?.uid: ${user?.uid} & currentUser?.uid: ${currentUser?.uid}");
         if (user?.uid != currentUser?.uid) {
           await _auth.signOut();
           writeUserToRealtimeDB();
+          if (!mounted) return;
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        } else {
+          //Google user is already registered with email
           if (!mounted) return;
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomeScreen()));
@@ -118,11 +135,42 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> checkInternetConnectivity() async {
+    bool isConnected = false;
+    int timeoutDuration = 1;
+    int recheckDuration = 3;
+    while (!isConnected) {
+      try {
+        final response = await InternetAddress.lookup('google.com')
+            .timeout(Duration(seconds: timeoutDuration));
+        if (response.isNotEmpty && response[0].rawAddress.isNotEmpty) {
+          // Connection is available
+          isConnected = true;
+        }
+      } on TimeoutException catch (_) {
+        // Connection is not available after the current timeout duration
+        setState(() {
+          error = 'No internet connectivity in $timeoutDuration seconds';
+        });
+        // Increase the timeout duration by 2 seconds
+        timeoutDuration++;
+      } on SocketException catch (_) {
+        // Error in checking internet connectivity
+        setState(() {
+          error = 'Error in checking internet connectivity';
+        });
+      }
+      // Wait for 5 seconds before checking again
+      await Future.delayed(Duration(seconds: recheckDuration));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        automaticallyImplyLeading: false, // set to false to remove back button
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -153,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 await signInWithEmailAndPassword(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: poshPurple,
                 textStyle: const TextStyle(color: Colors.white),
               ),
               child: const Text(
@@ -166,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 await signInWithGoogle(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: poshPurple,
                 textStyle: const TextStyle(color: Colors.white),
               ),
               child: const Text(

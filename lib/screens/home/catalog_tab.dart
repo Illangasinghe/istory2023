@@ -69,9 +69,10 @@ class _CatalogScreenState extends State<CatalogScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Categories'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Categories'),
+      //   automaticallyImplyLeading: false, // set to false to remove back button
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -91,7 +92,10 @@ class _CatalogScreenState extends State<CatalogScreen> {
         title: Text(category.name),
         subtitle: Text(category.hashtag),
         onTap: () {
+          print("category.hashtag:${category.hashtag}");
           // handle category tile tap
+          Navigator.pushNamed(context, '/category',
+              arguments: category.hashtag);
         },
       );
     }).toList();

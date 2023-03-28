@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _children = [
     const CatalogScreen(),
     StoryListScreen(
-      appTitle: 'istory',
       databaseReference: FirebaseDatabase.instance.ref(),
     ),
     const ProfileScreen(),
@@ -34,11 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat (H)istory'),
+        title: const Text('#istory Sinhala'),
+        automaticallyImplyLeading: false, // set to false to remove back button
         elevation: 0.1,
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               // Navigate to profile/settings screen
             },
